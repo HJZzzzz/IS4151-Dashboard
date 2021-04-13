@@ -51,6 +51,7 @@ const Zones = () => {
   const [response, setResponse] = useState({});
   const [shelfData, setShelfData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [shelfLocation, setShelfLocation] = useState("");
 
   useEffect(() => {
     console.log("use effect");
@@ -108,12 +109,14 @@ const Zones = () => {
   const renderShelfStatusLegends = () => {
     const legends = shelfData.map((data) => {
       let className = "legend zone" + data.name;
+      console.log(data);
       if (data.name == "A") {
         // Skip since it's the entrance.
         return;
       }
       if (data.shelf_actionable == "1") {
         className += " manage";
+        // setShelfLocation(data.shelf);
       } else {
         className += " ok";
       }

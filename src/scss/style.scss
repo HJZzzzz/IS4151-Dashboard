@@ -6,3 +6,79 @@
 
 // If you want to add something do it here
 @import "custom";
+
+.map .container {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.legend {
+  z-index: 10;
+  height: 1.5vw;
+  width: 1.5vw;
+  background-color: rgb(13, 185, 42);
+  position: absolute;
+  transform: rotate(45deg);
+}
+
+.zoneA {
+  // Entrance
+  top: 89%;
+  left: 34%;
+}
+.zoneB {
+  // Impulse buy
+  top: 72%;
+  left: 41%;
+}
+.zoneC {
+  // Flowers
+  top: 73%;
+  left: 10%;
+}
+.zoneD {
+  // Produce
+  top: 44%;
+  left: 10%;
+}
+.zoneE {
+  // Bakery
+  top: 16%;
+  left: 10%;
+}
+.zoneF {
+  // Purple
+  top: 44%;
+  left: 44.5%;
+}
+.zoneG {
+  // Dairy
+  top: 12%;
+  left: 30%;
+}
+.zoneH {
+  // Meat & Poultry
+  top: 12%;
+  left: 58%;
+}
+.zoneI {
+  // Seafood
+  top: 16%;
+  left: 87%;
+}
+.zoneJ {
+  // Pharmacy
+  top: 39%;
+  left: 87%;
+}
+.zoneK {
+  //  Grab & Go
+  top: 57%;
+  left: 87%;
+}
+.zoneL {
+  //  Coffee Bar
+  top: 74%;
+  left: 87%;
+}

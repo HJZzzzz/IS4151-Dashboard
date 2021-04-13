@@ -108,9 +108,23 @@ const Zones = () => {
         <CCol xs="12" sm="6" md="7">
           <CCard>
             <CCardHeader>Shelf Management</CCardHeader>
-
             <CCardBody>
-              <CCardImg src={"images/shoppingMap.png"}></CCardImg>
+              <div class="map container">
+                <CCardImg src={"images/shoppingMap.png"}></CCardImg>
+                {/* <div class="legend zoneA"></div> */}
+                {/*NOTE: We can omit zoneA since it's the entrance.  */}
+                <div class="legend zoneB"></div>
+                <div class="legend zoneC"></div>
+                <div class="legend zoneD"></div>
+                <div class="legend zoneE"></div>
+                <div class="legend zoneF"></div>
+                <div class="legend zoneG"></div>
+                <div class="legend zoneH"></div>
+                <div class="legend zoneI"></div>
+                <div class="legend zoneJ"></div>
+                <div class="legend zoneK"></div>
+                <div class="legend zoneL"></div>
+              </div>
             </CCardBody>
           </CCard>
         </CCol>

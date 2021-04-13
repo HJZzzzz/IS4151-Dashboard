@@ -106,9 +106,12 @@ const Zones = () => {
   }, []);
 
   const renderShelfStatusLegends = () => {
-    console.log(shelfData);
     const legends = shelfData.map((data) => {
       let className = "legend zone" + data.name;
+      if (data.name == "A") {
+        // Skip since it's the entrance.
+        return;
+      }
       if (data.shelf_actionable == "1") {
         className += " manage";
       } else {
@@ -134,8 +137,6 @@ const Zones = () => {
             <CCardBody>
               <div class="map container">
                 <CCardImg src={"images/shoppingMap.png"}></CCardImg>
-                {/* <div class="legend zoneA"></div> */}
-                {/*NOTE: We can omit zoneA since it's the entrance.  */}
                 {!loading && renderShelfStatusLegends()}
               </div>
             </CCardBody>

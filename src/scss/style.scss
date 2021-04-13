@@ -17,9 +17,16 @@
   z-index: 10;
   height: 1.5vw;
   width: 1.5vw;
-  background-color: rgb(13, 185, 42);
   position: absolute;
   transform: rotate(45deg);
+}
+
+.legend.ok {
+  background-color: rgb(13, 185, 42);
+}
+
+.legend.manage {
+  background-color: rgb(190, 36, 36);
 }
 
 .zoneA {

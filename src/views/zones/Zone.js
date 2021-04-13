@@ -24,7 +24,8 @@ import usersData from "../users/UsersData";
 import "antd/dist/antd.css";
 import { Select } from "antd";
 import ChartForZone from "./ChartForZone";
-
+import { BACKEND_ENDPOINT } from "../../constants";
+import axios from "axios";
 const { Option } = Select;
 
 const getBadge = (status) => {
@@ -48,11 +49,13 @@ const Zones = () => {
   const [zoneData, setZoneData] = useState([]);
   const [options1, setOptions1] = useState({});
   const [response, setResponse] = useState({});
+  const [shelfData, setShelfData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     console.log("use effect");
     let xhr = new XMLHttpRequest();
-    xhr.open("GET", "http://127.0.0.1:5000/zonedashboard", true);
+    xhr.open("GET", BACKEND_ENDPOINT + "zonedashboard", true);
     xhr.send();
     xhr.onreadystatechange = function () {
       if (xhr.readyState === 4) {
@@ -95,7 +98,27 @@ const Zones = () => {
         }
       }
     };
+    axios.get(BACKEND_ENDPOINT + "shelf/retrieveAll").then((res) => {
+      const { data } = res;
+      setShelfData(data);
+      setLoading(false);
+    });
   }, []);
+
+  const renderShelfStatusLegends = () => {
+    console.log(shelfData);
+    const legends = shelfData.map((data) => {
+      let className = "legend zone" + data.name;
+      if (data.shelf_actionable == "1") {
+        className += " manage";
+      } else {
+        className += " ok";
+      }
+      return <div key={data.id} class={className}></div>;
+    });
+    return legends;
+  };
+
   const handleSelect = (e) => {
     console.log("select");
     console.log(e);
@@ -113,17 +136,7 @@ const Zones = () => {
                 <CCardImg src={"images/shoppingMap.png"}></CCardImg>
                 {/* <div class="legend zoneA"></div> */}
                 {/*NOTE: We can omit zoneA since it's the entrance.  */}
-                <div class="legend zoneB"></div>
-                <div class="legend zoneC"></div>
-                <div class="legend zoneD"></div>
-                <div class="legend zoneE"></div>
-                <div class="legend zoneF"></div>
-                <div class="legend zoneG"></div>
-                <div class="legend zoneH"></div>
-                <div class="legend zoneI"></div>
-                <div class="legend zoneJ"></div>
-                <div class="legend zoneK"></div>
-                <div class="legend zoneL"></div>
+                {!loading && renderShelfStatusLegends()}
               </div>
             </CCardBody>
           </CCard>

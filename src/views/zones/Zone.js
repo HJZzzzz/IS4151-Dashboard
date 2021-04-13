@@ -159,9 +159,6 @@ const Zones = () => {
               <CCardBody className="map container">
                 <CCardImg src={"images/shoppingMap.png"}></CCardImg>
                 {renderShelfStatusLegends()}
-                {/* <CCardImgOverlay class="">
-                {!loading && renderShelfStatusLegends()}
-              </CCardImgOverlay> */}
               </CCardBody>
               {foundShelf && foundShelfWarning()}
             </CCard>

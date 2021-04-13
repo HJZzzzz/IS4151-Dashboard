@@ -7,7 +7,7 @@
 // If you want to add something do it here
 @import "custom";
 
-.map .container {
+.map.container.card-body {
   height: 100%;
   width: 100%;
   position: relative;
@@ -19,6 +19,7 @@
   width: 1.5vw;
   position: absolute;
   transform: rotate(45deg);
+  border-radius: 50%;
 }
 
 .legend.ok {
@@ -36,12 +37,12 @@
 }
 .zoneB {
   // Impulse buy
-  top: 67%;
+  top: 61%;
   left: 40.5%;
 }
 .zoneC {
   // Flowers
-  top: 67%;
+  top: 70%;
   left: 7%;
 }
 .zoneD {
@@ -51,27 +52,27 @@
 }
 .zoneE {
   // Bakery
-  top: 14%;
+  top: 10%;
   left: 7%;
 }
 .zoneF {
   // Purple
-  top: 44%;
+  top: 36%;
   left: 44.5%;
 }
 .zoneG {
   // Dairy
-  top: 11%;
+  top: 6%;
   left: 29%;
 }
 .zoneH {
   // Meat & Poultry
-  top: 11%;
+  top: 6%;
   left: 57%;
 }
 .zoneI {
   // Seafood
-  top: 14%;
+  top: 9%;
   left: 90%;
 }
 .zoneJ {

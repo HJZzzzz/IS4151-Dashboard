@@ -53,7 +53,7 @@ const TheHeader = () => {
         <CIcon name="logo" height="48" alt="Logo"/>
       </CHeaderBrand>
 
-      <CHeaderNav className="d-md-down-none mr-auto">
+      {/* <CHeaderNav className="d-md-down-none mr-auto">
         <CHeaderNavItem className="px-3" >
           <CHeaderNavLink to="/dashboard">Dashboard</CHeaderNavLink>
         </CHeaderNavItem>
@@ -63,13 +63,13 @@ const TheHeader = () => {
         <CHeaderNavItem className="px-3">
           <CHeaderNavLink>Settings</CHeaderNavLink>
         </CHeaderNavItem>
-      </CHeaderNav>
+      </CHeaderNav> */}
 
       <CHeaderNav className="px-3">
         <TheHeaderDropdownNotif/>
         <TheHeaderDropdownTasks/>
         <TheHeaderDropdownMssg/>
-        <TheHeaderDropdown/>
+        {/* <TheHeaderDropdown/> */}
       </CHeaderNav>
 
       <CSubheader className="px-3 justify-content-between">

@@ -10,10 +10,12 @@ import {
   CCardFooter,
   CCardHeader,
   CCol,
+  CCardImgOverlay,
   CProgress,
   CRow,
   CDataTable,
   CCardImg,
+  CCardText,
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 import ReactECharts from "echarts-for-react";
@@ -52,6 +54,7 @@ const Zones = () => {
   const [shelfData, setShelfData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [shelfLocation, setShelfLocation] = useState("");
+  const [foundShelf, setFoundShelf] = useState(false);
 
   useEffect(() => {
     console.log("use effect");
@@ -102,6 +105,12 @@ const Zones = () => {
     axios.get(BACKEND_ENDPOINT + "shelf/retrieveAll").then((res) => {
       const { data } = res;
       setShelfData(data);
+      data.forEach((zone) => {
+        if (zone.shelf_actionable == "1") {
+          setFoundShelf(true);
+          setShelfLocation(zone.shelf_location);
+        }
+      });
       setLoading(false);
     });
   }, []);
@@ -109,20 +118,29 @@ const Zones = () => {
   const renderShelfStatusLegends = () => {
     const legends = shelfData.map((data) => {
       let className = "legend zone" + data.name;
-      console.log(data);
       if (data.name == "A") {
         // Skip since it's the entrance.
         return;
       }
       if (data.shelf_actionable == "1") {
         className += " manage";
-        // setShelfLocation(data.shelf);
       } else {
         className += " ok";
       }
-      return <div key={data.id} class={className}></div>;
+      return (
+        <CCardImgOverlay key={data.id} className={className}></CCardImgOverlay>
+      );
     });
     return legends;
+  };
+
+  const foundShelfWarning = () => {
+    return (
+      <CCardFooter className="map-footer">
+        Shelf management service required at{" "}
+        <span class="shelf-location">{shelfLocation}</span>
+      </CCardFooter>
+    );
   };
 
   const handleSelect = (e) => {
@@ -135,15 +153,19 @@ const Zones = () => {
     <>
       <CRow style={{ display: "flex" }}>
         <CCol xs="12" sm="6" md="7">
-          <CCard>
-            <CCardHeader>Shelf Management</CCardHeader>
-            <CCardBody>
-              <div class="map container">
+          {!loading && (
+            <CCard>
+              <CCardHeader>Shelf Management</CCardHeader>
+              <CCardBody>
                 <CCardImg src={"images/shoppingMap.png"}></CCardImg>
+                {renderShelfStatusLegends()}
+                {/* <CCardImgOverlay class="">
                 {!loading && renderShelfStatusLegends()}
-              </div>
-            </CCardBody>
-          </CCard>
+              </CCardImgOverlay> */}
+              </CCardBody>
+              {foundShelf && foundShelfWarning()}
+            </CCard>
+          )}
         </CCol>
         <CCol xs="12" sm="6" md="5">
           <CCard>

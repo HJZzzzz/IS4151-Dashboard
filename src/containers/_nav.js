@@ -19,6 +19,12 @@ export default [
     icon: <CIcon name="cil-speedometer" customClasses="c-sidebar-nav-icon"/>,
   },
   {
+    _tag: 'CSidebarNavItem',
+    name: 'Zones',
+    to: '/zones',
+    icon: <CIcon name="cil-speedometer" customClasses="c-sidebar-nav-icon"/>,
+  },
+  {
     _tag: 'CSidebarNavTitle',
     _children: ['Theme']
   },

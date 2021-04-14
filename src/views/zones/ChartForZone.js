@@ -26,22 +26,26 @@ const ChartForZone = (props) => {
 
     const [options,setOptions] = useState({})
     const [data,setData] = useState([])
+    // const [visit,setVisist] = useState([])
+    // const [asist,setAssit] = useState([])
     useEffect(()=>{
         console.log(props)
         setData(props.data)
+        // setVisist(props.data.visit)
+        // setAssit(props.data.asist)
     },[props.data])
     return (
         <>
             <ReactECharts option={{
                 title: {
-                    text: 'Visit in a day',
+                    text: 'Visit&Assistance in a day',
                     subtext: ''
                 },
                 tooltip: {
                     trigger: 'axis'
                 },
                 legend: {
-                    data: ['蒸发量']
+                    data: ['Visit','Assistance']
                 },
                 toolbox: {
                     show: true,
@@ -68,7 +72,23 @@ const ChartForZone = (props) => {
                     {
                         name: 'No. Visit',
                         type: 'bar',
-                        data: data,
+                        data: data.visit,
+                        markPoint: {
+                            data: [
+                                {type: 'max', name: 'Max'},
+                                {type: 'min', name: 'Min'}
+                            ]
+                        },
+                        markLine: {
+                            data: [
+                                {type: 'average', name: 'Avg'}
+                            ]
+                        }
+                    },
+                    {
+                        name: 'No. Assistance',
+                        type: 'bar',
+                        data: data.assist,
                         markPoint: {
                             data: [
                                 {type: 'max', name: 'Max'},

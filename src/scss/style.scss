@@ -6,3 +6,96 @@
 
 // If you want to add something do it here
 @import "custom";
+
+.map.container.card-body {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.legend {
+  z-index: 10;
+  height: 1.5vw;
+  width: 1.5vw;
+  position: absolute;
+  transform: rotate(45deg);
+  border-radius: 50%;
+}
+
+.legend.ok {
+  background-color: rgb(13, 185, 42);
+}
+
+.legend.manage {
+  background-color: rgb(190, 36, 36);
+}
+
+.zoneA {
+  // Entrance
+  top: 89%;
+  left: 34%;
+}
+.zoneB {
+  // Impulse buy
+  top: 61%;
+  left: 40.5%;
+}
+.zoneC {
+  // Flowers
+  top: 70%;
+  left: 7%;
+}
+.zoneD {
+  // Produce
+  top: 42%;
+  left: 7%;
+}
+.zoneE {
+  // Bakery
+  top: 10%;
+  left: 7%;
+}
+.zoneF {
+  // Purple
+  top: 36%;
+  left: 44.5%;
+}
+.zoneG {
+  // Dairy
+  top: 6%;
+  left: 29%;
+}
+.zoneH {
+  // Meat & Poultry
+  top: 6%;
+  left: 57%;
+}
+.zoneI {
+  // Seafood
+  top: 9%;
+  left: 90%;
+}
+.zoneJ {
+  // Pharmacy
+  top: 35%;
+  left: 90%;
+}
+.zoneK {
+  //  Grab & Go
+  top: 53%;
+  left: 90%;
+}
+.zoneL {
+  //  Coffee Bar
+  top: 70%;
+  left: 90%;
+}
+
+.map-footer {
+  font-size: 20px;
+}
+
+.shelf-location {
+  font-weight: 800;
+  font-size: 24px;
+}

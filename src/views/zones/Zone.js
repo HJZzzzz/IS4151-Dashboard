@@ -157,7 +157,7 @@ const Zones = () => {
             <CCard>
               <CCardHeader>Shelf Management</CCardHeader>
               <CCardBody className="map container">
-                <CCardImg src={"images/shoppingMap.png"}></CCardImg>
+                <CCardImg src={"/images/shoppingMap.png"} style={{ height: "50vh" }} ></CCardImg>
                 {renderShelfStatusLegends()}
               </CCardBody>
               {foundShelf && foundShelfWarning()}

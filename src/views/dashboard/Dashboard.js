@@ -42,16 +42,19 @@ const Dashboard = () => {
   useEffect(() => {
     axios.get(BACKEND_ENDPOINT + "security").then((res) => {
       const { data } = res;
-      setSecurityInfo(data);
-      let userInfo = data.user ?? "Not signed in";
-      setSecurityTable([
-        {
-          id: data.id,
-          cart_name: data.cart_name,
-          user: userInfo,
-          timestamp: data.timestamp,
-        },
-      ]);
+      let temp = [];
+      data.forEach((element) => {
+        let username = element.name ?? "Not signed in";
+        const tableItem = {
+          id: element.id,
+          cart_name: element.cart_name,
+          user: username,
+          timestamp: element.timestamp,
+          image: element.image,
+        };
+        temp.push(tableItem);
+      });
+      setSecurityTable(temp);
       setLoading(false);
     });
   }, []);
@@ -60,17 +63,26 @@ const Dashboard = () => {
     { key: "cart_name", _classes: "text-white" },
     { key: "user", _classes: "text-white" },
     { key: "timestamp", _classes: "text-white" },
+    {
+      key: "show_details",
+      label: "",
+      _style: { width: "1%" },
+      sorter: false,
+      filter: false,
+    },
   ];
 
   const onClickResolve = async () => {
+    let temp = securityTable.filter((ele) => {
+      return ele.id != securityInfo.id;
+    });
     await axios.get(BACKEND_ENDPOINT + "security/resolve", {
       params: {
         id: securityInfo.id,
       },
     });
-    const temp = { ...securityInfo };
-    temp.resolved = 1;
-    setSecurityInfo(temp);
+    setSecurityInfo([]);
+    setSecurityTable(temp);
   };
 
   useLayoutEffect(() => {
@@ -264,7 +276,7 @@ const Dashboard = () => {
           </CRow>
         </CCardFooter>
       </CCard>
-      {!loading && securityInfo.resolved == 0 && (
+      {!loading && securityTable.length > 0 && (
         <CRow style={{ display: "flex" }}>
           <CCol xs="12" sm="6" md="7">
             <CCard color="danger" className="text-white text-center">
@@ -279,7 +291,25 @@ const Dashboard = () => {
                       <CDataTable
                         items={securityTable}
                         fields={securityFields}
-                        itemsPerPage={1}
+                        itemsPerPage={10}
+                        scopedSlots={{
+                          show_details: (item, index) => {
+                            return (
+                              <td className="py-2">
+                                <CButton
+                                  color="primary"
+                                  shape="pill"
+                                  size="sm"
+                                  onClick={() => {
+                                    setSecurityInfo(item);
+                                  }}
+                                >
+                                  Select
+                                </CButton>
+                              </td>
+                            );
+                          },
+                        }}
                       />
                       <p className="lead">
                         <CButton
@@ -292,14 +322,22 @@ const Dashboard = () => {
                       </p>
                     </div>
                   </CCol>
-                  <CCol xs="12" sm="6">
-                    <CCardImg
-                      src={"data:image/png;base64," + securityInfo?.image}
-                    ></CCardImg>
+                  <CCol style={{ margin: "auto" }} xs="12" sm="6">
+                    {securityInfo?.image && (
+                      <CCardImg
+                        src={"data:image/png;base64," + securityInfo?.image}
+                      ></CCardImg>
+                    )}
+                    {!securityInfo?.image && (
+                      <h1 className="display-5">
+                        {" "}
+                        Please select a security footage to catch the criminal
+                        scum!
+                      </h1>
+                    )}
                   </CCol>
                 </CRow>
               </CCardBody>
-              <CCardFooter></CCardFooter>
             </CCard>
           </CCol>
         </CRow>

@@ -24,6 +24,7 @@ import axios from "axios";
 import MainChartExample from "../charts/MainChartExample.js";
 import Page from "./chart";
 import { BACKEND_ENDPOINT } from "../../constants";
+import { resolveOnChange } from "antd/lib/input/Input";
 const WidgetsDropdown = lazy(() => import("../widgets/WidgetsDropdown.js"));
 const WidgetsBrand = lazy(() => import("../widgets/WidgetsBrand.js"));
 
@@ -35,7 +36,7 @@ const Dashboard = () => {
   const [saleStockPercentage, setSaleStockPercentage] = useState(0);
   const [options, setOptions] = useState({});
   const [loading, setLoading] = useState(true);
-  const [securityInfo, setSecurityInfo] = useState("/images/intruder.png");
+  const [securityInfo, setSecurityInfo] = useState([]);
   const [securityTable, setSecurityTable] = useState([]);
 
   useEffect(() => {
@@ -60,6 +61,18 @@ const Dashboard = () => {
     { key: "user", _classes: "text-white" },
     { key: "timestamp", _classes: "text-white" },
   ];
+
+  const onClickResolve = async () => {
+    await axios.get(BACKEND_ENDPOINT + "security/resolve", {
+      params: {
+        id: securityInfo.id,
+      },
+    });
+    const temp = { ...securityInfo };
+    temp.resolved = 1;
+    setSecurityInfo(temp);
+  };
+
   useLayoutEffect(() => {
     console.log("use layout effect");
     let xhr = new XMLHttpRequest();
@@ -251,14 +264,14 @@ const Dashboard = () => {
           </CRow>
         </CCardFooter>
       </CCard>
-      <CRow style={{ display: "flex" }}>
-        <CCol xs="12" sm="6" md="7">
-          <CCard color="danger" className="text-white text-center">
-            <CCardHeader>Security</CCardHeader>
-            <CCardBody>
-              <CRow>
-                <CCol xs="12" sm="6">
-                  {!loading && (
+      {!loading && securityInfo.resolved == 0 && (
+        <CRow style={{ display: "flex" }}>
+          <CCol xs="12" sm="6" md="7">
+            <CCard color="danger" className="text-white text-center">
+              <CCardHeader>Security</CCardHeader>
+              <CCardBody>
+                <CRow>
+                  <CCol xs="12" sm="6">
                     <div>
                       <h1 className="display-3"> WARNING!</h1>
                       <p className="lead">Intruder caught!</p>
@@ -269,24 +282,28 @@ const Dashboard = () => {
                         itemsPerPage={1}
                       />
                       <p className="lead">
-                        <CButton color="success" size="lg">
+                        <CButton
+                          onClick={() => onClickResolve()}
+                          color="success"
+                          size="lg"
+                        >
                           Resolve
                         </CButton>
                       </p>
                     </div>
-                  )}
-                </CCol>
-                <CCol xs="12" sm="6">
-                  <CCardImg
-                    src={"data:image/png;base64," + securityInfo?.image}
-                  ></CCardImg>
-                </CCol>
-              </CRow>
-            </CCardBody>
-            <CCardFooter></CCardFooter>
-          </CCard>
-        </CCol>
-      </CRow>
+                  </CCol>
+                  <CCol xs="12" sm="6">
+                    <CCardImg
+                      src={"data:image/png;base64," + securityInfo?.image}
+                    ></CCardImg>
+                  </CCol>
+                </CRow>
+              </CCardBody>
+              <CCardFooter></CCardFooter>
+            </CCard>
+          </CCol>
+        </CRow>
+      )}
     </>
   );
 };
